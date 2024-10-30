@@ -1,0 +1,9 @@
+#Fill the data and change file extension to .properties
+
+#User accounts
+standardUser = 
+lockedOutUser = 
+problemUser = 
+performanceGlitchUser = 
+errorUser = 
+visualUser = 

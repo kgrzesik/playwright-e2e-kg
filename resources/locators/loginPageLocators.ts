@@ -9,10 +9,16 @@ export class LoginPageLocators {
   public get usernameInput(): Locator {
     return this.page.locator("input[data-test=username]");
   }
+
   public get passwordInput(): Locator {
     return this.page.locator("input[data-test=password]");
   }
+
   public get loginButton(): Locator {
     return this.page.locator("input[data-test=login-button]");
+  }
+
+  public get errorMessage(): Locator {
+    return this.page.locator("h3[data-test=error]");
   }
 }

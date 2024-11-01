@@ -54,7 +54,7 @@ test("Logout", async ({ loginPage, mainPage }) => {
   await loginPage.checkPageTitle(PageTitles.SWAG_LABS);
 
   //Logout
-  mainPage.logout(SidebarButtons.LOGOUT);
+  await mainPage.chooseOptionFromSide(SidebarButtons.LOGOUT);
 
   //Check if the fields are empty
   await expect(loginPage.locators.usernameInput).toHaveValue("");

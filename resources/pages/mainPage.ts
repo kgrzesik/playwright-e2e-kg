@@ -3,6 +3,8 @@ import { BasePage } from "./basePage";
 import { MainPageLocators } from "../locators/mainPageLocators";
 import { SidebarButtons } from "../utilities/dictionaries/sidebarButtons";
 import { SortOptions } from "../utilities/dictionaries/sortOptions";
+import { ProductNames } from "../utilities/dictionaries/productNames";
+import { ButtonNames } from "../utilities/dictionaries/buttonNames";
 
 export class MainPage extends BasePage {
   locators: MainPageLocators;
@@ -87,5 +89,30 @@ export class MainPage extends BasePage {
         }
         break;
     }
+  }
+
+  public async addProductToCart(productName: ProductNames) {
+    const { numberOfProductInCartBefore, numberOfProductInCartAfter }: any = await this.getNumbersOfProduct(productName, ButtonNames.ADD_TO_CART);
+    await expect(parseInt(numberOfProductInCartAfter)).toBe(parseInt(numberOfProductInCartBefore) + 1);
+  }
+
+  public async removeProductFromCart(productName: ProductNames) {
+    const { numberOfProductInCartBefore, numberOfProductInCartAfter }: any = await this.getNumbersOfProduct(productName, ButtonNames.REMOVE);
+    await expect(parseInt(numberOfProductInCartAfter)).toBe(parseInt(numberOfProductInCartBefore) - 1);
+  }
+
+  public async goToCartPage() {
+    await this.locators.cartButton.click();
+  }
+
+  //Private functions
+  private async getNumbersOfProduct(productName: ProductNames, buttonName: ButtonNames) {
+    const numberOfProductInCartBefore = (await this.locators.cartButton.textContent()) || "0";
+    const productButton = await this.locators.productsDescription(productName).locator("button");
+    await expect(productButton).toHaveText(buttonName);
+    await productButton.click();
+    const numberOfProductInCartAfter = (await this.locators.cartButton.textContent()) || "0";
+
+    return { numberOfProductInCartBefore, numberOfProductInCartAfter };
   }
 }

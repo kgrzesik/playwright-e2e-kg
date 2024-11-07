@@ -1,10 +1,10 @@
 import { ConfigReader } from "../../resources/utilities/helpers/configReader";
 import { AccountTypes } from "../../resources/utilities/dictionaries/accountsTypes";
 import { PageTitles } from "../../resources/utilities/dictionaries/pageTitles";
-import { test } from "../../resources/fixtures/mainPageFixtures";
+import { test } from "../../resources/fixtures/sortProductsFixtures";
 import { SortOptions } from "../../resources/utilities/dictionaries/sortOptions";
 
-test("Logout", async ({ loginPage, mainPage }) => {
+test("Sort Products", async ({ loginPage, mainPage }) => {
   //Navigate to login page
   await loginPage.navigateToPage();
 

@@ -1,6 +1,8 @@
 import { CartPage } from "../pages/cartPage";
+import { CompletePage } from "../pages/completePage";
 import { LoginPage } from "../pages/loginPage";
 import { MainPage } from "../pages/mainPage";
+import { OverviewPage } from "../pages/overviewPage";
 import { YourInformationPage } from "../pages/yourInformationPage";
 import { testWithUtils } from "./commonFixtures";
 
@@ -9,6 +11,8 @@ type buyProductFixtures = {
   mainPage: MainPage;
   cartPage: CartPage;
   yourInformationPage: YourInformationPage;
+  overviewPage: OverviewPage;
+  completePage: CompletePage;
 };
 
 export const test = testWithUtils.extend<buyProductFixtures>({
@@ -26,6 +30,14 @@ export const test = testWithUtils.extend<buyProductFixtures>({
   },
   yourInformationPage: async ({ page }, use) => {
     const mainPage = new YourInformationPage(page);
+    await use(mainPage);
+  },
+  overviewPage: async ({ page }, use) => {
+    const mainPage = new OverviewPage(page);
+    await use(mainPage);
+  },
+  completePage: async ({ page }, use) => {
+    const mainPage = new CompletePage(page);
     await use(mainPage);
   },
 });

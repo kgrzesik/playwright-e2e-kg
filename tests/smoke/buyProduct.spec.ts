@@ -104,3 +104,40 @@ test("Validate the field on Your Information Page", async ({ loginPage, mainPage
   await yourInformationPage.enterShippingDetails("", faker.person.lastName(), faker.location.zipCode());
   await yourInformationPage.checkShippingDetailsError("Error: First Name is required");
 });
+
+test("Buy product flow", async ({ loginPage, mainPage, cartPage, yourInformationPage, overviewPage, completePage }) => {
+  //Navigate to login page
+  await loginPage.navigateToPage();
+
+  //Login
+  const credentials = ConfigReader.getUser(AccountTypes.STANDARD_USER);
+  await loginPage.loginToApp(credentials.login, credentials.password);
+  await loginPage.checkPageTitle(PageTitles.SWAG_LABS);
+
+  //Add to cart
+  await mainPage.addProductToCart(ProductNames.JACKET);
+  await mainPage.addProductToCart(ProductNames.ONESIE);
+
+  //Go to cart page
+  await mainPage.goToCartPage();
+  await mainPage.checkPageTitle(PageTitles.SWAG_LABS);
+
+  //Go to your information page
+  await cartPage.goToYourInformationPage();
+  await cartPage.checkPageTitle(PageTitles.SWAG_LABS);
+
+  //Enter only: last name, zip code
+  await yourInformationPage.enterShippingDetails(faker.person.firstName(), faker.person.lastName(), faker.location.zipCode());
+  await yourInformationPage.checkPageTitle(PageTitles.SWAG_LABS);
+
+  //Check items and prices
+  await overviewPage.checkCartItemName(ProductNames.JACKET);
+  await overviewPage.checkCartItemName(ProductNames.ONESIE);
+  await overviewPage.checkPrices();
+  await overviewPage.finshOrder();
+
+  //Check message
+  await completePage.checkMessage("Thank you for your order!");
+  await completePage.backToHomePage();
+  await mainPage.checkPageTitle(PageTitles.SWAG_LABS);
+});

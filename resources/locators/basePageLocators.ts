@@ -19,4 +19,7 @@ export class BasePageLocators {
   public get errorMessage(): Locator {
     return this.page.locator("h3[data-test=error]");
   }
+  public get titleField(): Locator {
+    return this.page.locator(".title");
+  }
 }

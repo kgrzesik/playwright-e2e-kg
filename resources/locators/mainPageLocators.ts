@@ -1,25 +1,13 @@
 import { Locator, Page } from "@playwright/test";
+import { BasePageLocators } from "./basePageLocators";
 
-export class MainPageLocators {
-  page: Page;
+export class MainPageLocators extends BasePageLocators {
   constructor(page: Page) {
-    this.page = page;
-  }
-
-  public get burgerButton(): Locator {
-    return this.page.locator("button[id=react-burger-menu-btn]");
-  }
-
-  public get cartButton(): Locator {
-    return this.page.locator("a[data-test=shopping-cart-link]");
+    super(page);
   }
 
   public get sortContainer(): Locator {
     return this.page.locator("select[data-test=product-sort-container]");
-  }
-
-  public sidebarButton(option: string): Locator {
-    return this.page.locator("#" + option + "_sidebar_link");
   }
 
   public get productNames(): Locator {
@@ -28,5 +16,9 @@ export class MainPageLocators {
 
   public get productPrices(): Locator {
     return this.page.locator(".inventory_item_price");
+  }
+
+  public productsDescription(productName: string): Locator {
+    return this.page.locator(".inventory_item_description", { hasText: productName });
   }
 }

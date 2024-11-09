@@ -2,12 +2,12 @@ import { LoginPage } from "../pages/loginPage";
 import { MainPage } from "../pages/mainPage";
 import { testWithUtils } from "./commonFixtures";
 
-type LoginFixtures = {
+type sortProductsFixtures = {
   loginPage: LoginPage;
   mainPage: MainPage;
 };
 
-export const test = testWithUtils.extend<LoginFixtures>({
+export const test = testWithUtils.extend<sortProductsFixtures>({
   loginPage: async ({ page }, use) => {
     const loginPage = new LoginPage(page);
     await use(loginPage);

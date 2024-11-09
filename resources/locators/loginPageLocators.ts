@@ -1,9 +1,9 @@
 import { Locator, Page } from "@playwright/test";
+import { BasePageLocators } from "./basePageLocators";
 
-export class LoginPageLocators {
-  page: Page;
+export class LoginPageLocators extends BasePageLocators {
   constructor(page: Page) {
-    this.page = page;
+    super(page);
   }
 
   public get usernameInput(): Locator {
@@ -16,9 +16,5 @@ export class LoginPageLocators {
 
   public get loginButton(): Locator {
     return this.page.locator("input[data-test=login-button]");
-  }
-
-  public get errorMessage(): Locator {
-    return this.page.locator("h3[data-test=error]");
   }
 }
